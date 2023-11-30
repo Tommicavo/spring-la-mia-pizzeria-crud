@@ -1,0 +1,15 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="ISO-8859-1">
+<title>Pizzas</title>
+</head>
+<body>
+	<h1>Menù</h1>
+	<ul>
+		<li th:each="pizza : ${pizzas}">
+			<a th:href="@{/pizzas/{id}(id=${pizza.id})}">[[${pizza.toString()}]]</a>
+		</li>
+	</ul>
+</body>
+</html>
