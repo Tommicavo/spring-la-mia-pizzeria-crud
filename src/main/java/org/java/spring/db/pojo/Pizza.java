@@ -19,14 +19,17 @@ public class Pizza {
 	@Column(columnDefinition = "TEXT")
 	private String description;
 	
+	private String imageUrl;
+	
 	@Column(nullable = false)
 	private int price;
 	
 	// Constructors
 	public Pizza() {}
-	public Pizza(String name, String description, int price) {
+	public Pizza(String name, String description, String imageUrl, int price) {
 		setName(name);
 		setDescription(description);
+		setImageUrl(imageUrl);
 		setPrice(price);
 	}
 	
@@ -48,6 +51,12 @@ public class Pizza {
 	}
 	public void setDescription(String description) {
 		this.description = description;
+	}
+	public String getImageUrl() {
+		return imageUrl;
+	}
+	public void setImageUrl(String imageUrl) {
+		this.imageUrl = imageUrl;
 	}
 	public int getPrice() {
 		return price;

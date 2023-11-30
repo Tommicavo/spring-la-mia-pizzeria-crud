@@ -20,10 +20,10 @@ public class SpringLaMiaPizzeriaCrudApplication implements CommandLineRunner {
 
 	@Override
 	public void run(String... args) throws Exception {
-		pizzaService.save(new Pizza("Margherita", "La classica", 700));
-		pizzaService.save(new Pizza("Salamino", "La piccante", 850));
-		pizzaService.save(new Pizza("Napoli", "La salata", 800));
-		pizzaService.save(new Pizza("Calzone", "Il farcito", 900));
-		pizzaService.save(new Pizza("SuperPizza", "La speciale", 1250));
+		pizzaService.save(new Pizza("Margherita", "La classica", "imageUrl_1",  700));
+		pizzaService.save(new Pizza("Salamino", "La piccante", "imageUrl_2", 850));
+		pizzaService.save(new Pizza("Napoli", "La salata", "imageUrl_3", 800));
+		pizzaService.save(new Pizza("Calzone", "Il farcito", "imageUrl_4", 900));
+		pizzaService.save(new Pizza("SuperPizza", "La speciale", "imageUrl_5", 1250));
 	}
 }

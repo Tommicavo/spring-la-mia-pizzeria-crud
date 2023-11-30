@@ -17,8 +17,8 @@ public class MainController {
 	@Autowired
 	private PizzaService pizzaService;
 	
-	@GetMapping
-	public String getPizzas(Model model) {
+	@GetMapping("/")
+	public String index(Model model) {
 		
 		List<Pizza> pizzas = pizzaService.findAll();
 		model.addAttribute("pizzas", pizzas);
@@ -26,7 +26,7 @@ public class MainController {
 	}
 	
 	@GetMapping("/pizzas/{id}")
-	public String getPizza(Model model, @PathVariable int id) {
+	public String show(Model model, @PathVariable int id) {
 		
 		Pizza pizza = pizzaService.findById(id);
 		model.addAttribute("pizza", pizza);

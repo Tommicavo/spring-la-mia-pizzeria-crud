@@ -1,15 +1,34 @@
 <!DOCTYPE html>
-<html>
+<html lang="en">
 <head>
-<meta charset="ISO-8859-1">
-<title>Pizzas</title>
+	<meta charset="UTF-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+	<title>Pizzas</title>
+	<div th:insert="~{fragments/fragments :: imports}"></div>
 </head>
 <body>
-	<h1>Menù</h1>
-	<ul>
-		<li th:each="pizza : ${pizzas}">
-			<a th:href="@{/pizzas/{id}(id=${pizza.id})}">[[${pizza.toString()}]]</a>
-		</li>
-	</ul>
+	<div class="container">
+		<h1 class="text-center my-2">Menù</h1>
+		<table class="table table-danger table-striped myTable">
+			<thead>
+			  <tr>
+				<th scope="col">#</th>
+				<th scope="col">Name</th>
+				<th scope="col">Price</th>
+				<th scope="col">Tasks</th>
+			  </tr>
+			</thead>
+			<tbody>
+			  <tr th:each="pizza : ${pizzas}">
+				<td>[[${pizza.id}]]</td>
+				<td>[[${pizza.name}]]</td>
+				<td>[[${pizza.getFormattedPrice()}]]</td>
+				<td>
+					<a class="btn btn-light text-danger" th:href="@{/pizzas/{id}(id=${pizza.id})}">Info</a>
+				</td>
+			  </tr>
+			</tbody>
+		  </table>
+	</div>
 </body>
 </html>
