@@ -33,3 +33,7 @@ a{
     border-radius: 2rem;
     overflow: hidden;
 }
+
+tr>*{
+    text-align: center;
+}

@@ -8,27 +8,41 @@
 </head>
 <body>
 	<div class="container">
-		<h1 class="text-center my-2">Menù</h1>
-		<table class="table table-danger table-striped myTable">
-			<thead>
-			  <tr>
-				<th scope="col">#</th>
-				<th scope="col">Name</th>
-				<th scope="col">Price</th>
-				<th scope="col">Tasks</th>
-			  </tr>
-			</thead>
-			<tbody>
-			  <tr th:each="pizza : ${pizzas}">
-				<td>[[${pizza.id}]]</td>
-				<td>[[${pizza.name}]]</td>
-				<td>[[${pizza.getFormattedPrice()}]]</td>
-				<td>
-					<a class="btn btn-light text-danger" th:href="@{/pizzas/{id}(id=${pizza.id})}">Info</a>
-				</td>
-			  </tr>
-			</tbody>
-		  </table>
+		<h1 class="text-danger text-center my-2">Menù</h1>
+		<div class="text-center my-5" th:if="${pizzas.size() == 0}">No Pizzas registered here yet</div>
+		<div th:unless="${pizzas.size() == 0}">
+				<header>
+					<div class="row">
+						<div class="col-6 mx-auto">
+							<form action="" method="GET" class="d-flex align-items-center gap-2 mb-3">
+								<input type="text" class="form-control" id="searchedWord" placeholder="Search a pizza..." name="searchedWord" th:value="${searchedWord}">
+								<button type="submit" class="btn btn-danger">Search</button>
+							</form>
+						</div>
+					</div>
+				</header>
+		
+				<table class="table table-danger table-striped myTable">
+					<thead>
+					<tr>
+						<th scope="col">#</th>
+						<th scope="col">Name</th>
+						<th scope="col">Price</th>
+						<th scope="col">Tasks</th>
+					</tr>
+					</thead>
+					<tbody>
+					<tr th:each="pizza : ${pizzas}">
+						<td>[[${pizza.id}]]</td>
+						<td>[[${pizza.name}]]</td>
+						<td>[[${pizza.getFormattedPrice()}]]</td>
+						<td>
+							<a class="btn btn-light text-danger" th:href="@{/pizzas/{id}(id=${pizza.id})}">Info</a>
+						</td>
+					</tr>
+					</tbody>
+				</table>
+		</div>
 	</div>
 </body>
 </html>
