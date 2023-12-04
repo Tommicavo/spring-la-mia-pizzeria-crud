@@ -12,12 +12,15 @@
 		<div class="text-center my-5" th:if="${pizzas.size() == 0}">No Pizzas registered here yet</div>
 		<div th:unless="${pizzas.size() == 0}">
 				<header>
-					<div class="row">
-						<div class="col-6 mx-auto">
+					<div class="d-flex justify-content-evenly align-items-center">
+						<div class="">
 							<form action="" method="GET" class="d-flex align-items-center gap-2 mb-3">
 								<input type="text" class="form-control" id="searchedWord" placeholder="Search a pizza..." name="searchedWord" th:value="${searchedWord}">
 								<button type="submit" class="btn btn-danger">Search</button>
 							</form>
+						</div>
+						<div class="">
+							<a th:href="@{/pizzas/create}" class="btn btn-success">Create New Pizza</a>
 						</div>
 					</div>
 				</header>
