@@ -37,3 +37,8 @@ a{
 tr>*{
     text-align: center;
 }
+
+#searchedWord{
+    flex-basis: 70%;
+}
+

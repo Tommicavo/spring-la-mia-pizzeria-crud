@@ -12,15 +12,21 @@
 		<div class="text-center my-5" th:if="${pizzas.size() == 0}">No Pizzas registered here yet</div>
 		<div th:unless="${pizzas.size() == 0}">
 				<header>
-					<div class="d-flex justify-content-evenly align-items-center">
-						<div class="">
-							<form action="" method="GET" class="d-flex align-items-center gap-2 mb-3">
+					<div class="row my-2">
+						<div class="col-8 offset-1">
+							<form action="" method="GET" class="d-flex align-items-center gap-2">
 								<input type="text" class="form-control" id="searchedWord" placeholder="Search a pizza..." name="searchedWord" th:value="${searchedWord}">
-								<button type="submit" class="btn btn-danger">Search</button>
+								<button type="submit" class="btn btn-danger">
+									<span><i class="fa-solid fa-magnifying-glass"></i></span>
+									<span>Search</span>
+								</button>
 							</form>
 						</div>
-						<div class="">
-							<a th:href="@{/pizzas/create}" class="btn btn-success">Create New Pizza</a>
+						<div class="col-2 mx-auto">
+							<a th:href="@{/pizzas/create}" class="btn btn-success">
+								<span><i class="fa-solid fa-plus"></i></span>
+								<span>New Pizza</span>
+							</a>
 						</div>
 					</div>
 				</header>
@@ -40,7 +46,17 @@
 						<td>[[${pizza.name}]]</td>
 						<td>[[${pizza.getFormattedPrice()}]]</td>
 						<td>
-							<a class="btn btn-light text-danger" th:href="@{/pizzas/{id}(id=${pizza.id})}">Info</a>
+							<a class="btn btn-primary" th:href="@{/pizzas/{id}(id=${pizza.id})}">
+								<i class="fa-solid fa-eye"></i>
+							</a>
+							<a class="btn btn-warning" th:href="@{/pizzas/edit/{id}(id=${pizza.id})}">
+								<i class="fa-solid fa-pen"></i>
+							</a>
+							<form th:action="@{/pizzas/delete/{id}(id=${pizza.id})}"method="POST" class="d-inline-block">
+								<button type="submit" class="btn btn-danger">
+									<i class="fa-solid fa-trash-can"></i>
+								</button>
+							</form>
 						</td>
 					</tr>
 					</tbody>

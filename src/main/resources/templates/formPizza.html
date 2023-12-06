@@ -3,12 +3,12 @@
 <head>
 	<meta charset="UTF-8">
 	<meta name="viewport" content="width=device-width, initial-scale=1.0">
-	<title>Create New Pizza</title>
+	<title th:text="${create ? 'Create' : 'Edit'}"></title>
 	<div th:insert="~{fragments/fragments :: imports}"></div>
 </head>
 <body>
     <div class="container">
-        <h1 class="text-center text-danger py-3">Create a New Pizza</h1>
+        <h1 class="text-center text-danger py-3" th:text="${create ? 'Create New' : 'Edit'} + ' Pizza'"></h1>
         <form method="POST" th:object="${pizza}">
             <div class="name mb-3">
                 <label for="name" class="form-label">Name</label>
@@ -34,7 +34,10 @@
                     th:field="*{price}" th:classappend="${#fields.hasErrors('price')} ? 'is-invalid' : ''">
                 <div th:replace="~{fragments/fragments :: errorDiv('price')}"></div>
             </div>
-            <button type="submit" class="btn btn-success">Create!</button>
+            <div class="d-flex justify-content-between align-items-center">
+                <button type="submit" class="btn btn-success" th:text="${create ? 'Create' : 'Edit'}"></button>
+                <a th:href="@{/}" class="btn btn-primary">Back</a>
+            </div>
         </form>
     </div>
 </body>

@@ -51,7 +51,8 @@ public class MainController {
 
 		Pizza pizza = new Pizza();
 		model.addAttribute(pizza);
-		return "createPizza";
+		model.addAttribute("create", true);
+		return "formPizza";
 	}
 
 	@PostMapping("/pizzas/create")
@@ -60,14 +61,48 @@ public class MainController {
 			@Valid @ModelAttribute Pizza pizza,
 			BindingResult bindingResult) {
 
-		if (bindingResult.hasErrors()) {
+		return savePizza(model, bindingResult, pizza);
+	}
 
+	@GetMapping("pizzas/edit/{id}")
+	public String edit(Model model, @PathVariable int id) {
+
+		Pizza pizza = pizzaService.findById(id);
+		model.addAttribute("pizza", pizza);
+		model.addAttribute("create", false);
+		return "formPizza";
+	}
+
+	@PostMapping("pizzas/edit/{id}")
+	public String update(Model model,
+			@Valid @ModelAttribute Pizza pizza,
+			BindingResult bindingResult) {
+
+		return savePizza(model, bindingResult, pizza);
+	}
+
+	public String savePizza(Model model, BindingResult bindingResult, Pizza pizza) {
+		if (bindingResult.hasErrors()) {
 			System.out.println(bindingResult);
 			model.addAttribute("pizza", pizza);
-			return "createPizza";
+			return "formPizza";
 		}
 
-		pizzaService.save(pizza);
+		try {
+			pizzaService.save(pizza);
+		} catch (Exception e) {
+			System.out.println("Create Error: " + e.getMessage());
+			return "formPizza";
+		}
+		return "redirect:/";
+	}
+
+	@PostMapping("/pizzas/delete/{id}")
+	public String delete(@PathVariable int id) {
+
+		Pizza pizza = pizzaService.findById(id);
+		pizzaService.delete(pizza);
+
 		return "redirect:/";
 	}
 }
