@@ -27,8 +27,8 @@ public class MainController {
 	public String index(Model model, @RequestParam(required = false) String searchedWord) {
 
 		List<Pizza> pizzas;
-		if (searchedWord == null) {
-			pizzas = pizzaService.findAll();
+		if (searchedWord == null || searchedWord.length() == 0) {
+			pizzas = pizzaService.findAllWithoutTrashed();
 		} else {
 			pizzas = pizzaService.searchPizza(searchedWord);
 			model.addAttribute("searchedWord", searchedWord);
@@ -39,7 +39,7 @@ public class MainController {
 	}
 
 	@GetMapping("/pizzas/{id}")
-	public String show(Model model, @PathVariable int id) {
+	public String showPizza(Model model, @PathVariable int id) {
 
 		Pizza pizza = pizzaService.findById(id);
 		model.addAttribute("pizza", pizza);
@@ -47,7 +47,7 @@ public class MainController {
 	}
 
 	@GetMapping("/pizzas/create")
-	public String create(Model model) {
+	public String createPizza(Model model) {
 
 		Pizza pizza = new Pizza();
 		model.addAttribute(pizza);
@@ -56,7 +56,7 @@ public class MainController {
 	}
 
 	@PostMapping("/pizzas/create")
-	public String store(
+	public String storePizza(
 			Model model,
 			@Valid @ModelAttribute Pizza pizza,
 			BindingResult bindingResult) {
@@ -65,7 +65,7 @@ public class MainController {
 	}
 
 	@GetMapping("pizzas/edit/{id}")
-	public String edit(Model model, @PathVariable int id) {
+	public String editPizza(Model model, @PathVariable int id) {
 
 		Pizza pizza = pizzaService.findById(id);
 		model.addAttribute("pizza", pizza);
@@ -74,7 +74,7 @@ public class MainController {
 	}
 
 	@PostMapping("pizzas/edit/{id}")
-	public String update(Model model,
+	public String updatePizza(Model model,
 			@Valid @ModelAttribute Pizza pizza,
 			BindingResult bindingResult) {
 
@@ -98,11 +98,36 @@ public class MainController {
 	}
 
 	@PostMapping("/pizzas/delete/{id}")
-	public String delete(@PathVariable int id) {
+	public String deletePizza(@PathVariable int id) {
 
 		Pizza pizza = pizzaService.findById(id);
 		pizzaService.delete(pizza);
 
+		return "redirect:/";
+	}
+
+	@GetMapping("pizzas/trash")
+	public String trash(Model model) {
+
+		List<Pizza> pizzas = pizzaService.findAllWithTrashed();
+		model.addAttribute("pizzas", pizzas);
+
+		return "trash";
+	}
+
+	@PostMapping("/pizzas/trash/{id}")
+	public String trashPizza(@PathVariable int id) {
+		Pizza pizza = pizzaService.findById(id);
+		pizza.setDeleted(true);
+		pizzaService.save(pizza);
+		return "redirect:/";
+	}
+
+	@PostMapping("/pizzas/restore/{id}")
+	public String restorePizza(@PathVariable int id) {
+		Pizza pizza = pizzaService.findById(id);
+		pizza.setDeleted(false);
+		pizzaService.save(pizza);
 		return "redirect:/";
 	}
 }

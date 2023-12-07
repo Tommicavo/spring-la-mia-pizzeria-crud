@@ -8,6 +8,10 @@ import org.java.spring.db.pojo.Pizza;
 
 @Repository
 public interface PizzaRepository extends JpaRepository<Pizza, Integer> {
-	
-	List<Pizza> findPizzaByNameContainingIgnoreCase(String query);
+
+	List<Pizza> findPizzaByIsDeletedFalseAndNameContainingIgnoreCase(String query);
+
+	List<Pizza> findByIsDeletedFalse();
+
+	List<Pizza> findPizzaByIsDeletedTrue();
 }

@@ -26,10 +26,18 @@ public class PizzaService {
 	}
 
 	public List<Pizza> searchPizza(String query) {
-		return pizzaRepository.findPizzaByNameContainingIgnoreCase(query);
+		return pizzaRepository.findPizzaByIsDeletedFalseAndNameContainingIgnoreCase(query);
 	}
 
 	public void delete(Pizza pizza) {
 		pizzaRepository.delete(pizza);
+	}
+
+	public List<Pizza> findAllWithoutTrashed() {
+		return pizzaRepository.findByIsDeletedFalse();
+	}
+
+	public List<Pizza> findAllWithTrashed() {
+		return pizzaRepository.findPizzaByIsDeletedTrue();
 	}
 }

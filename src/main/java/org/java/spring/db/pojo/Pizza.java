@@ -30,8 +30,11 @@ public class Pizza {
 	@Min(value = 1, message = "'Price' field must be greater than or equals to 0.")
 	private int price;
 
+	private boolean isDeleted;
+
 	// Constructors
 	public Pizza() {
+		setDeleted(false);
 	}
 
 	public Pizza(String name, String description, String imageUrl, int price) {
@@ -39,6 +42,7 @@ public class Pizza {
 		setDescription(description);
 		setImageUrl(imageUrl);
 		setPrice(price);
+		setDeleted(false);
 	}
 
 	// Getters and Setters
@@ -80,6 +84,14 @@ public class Pizza {
 
 	public void setPrice(int price) {
 		this.price = price;
+	}
+
+	public boolean isDeleted() {
+		return isDeleted;
+	}
+
+	public void setDeleted(boolean isDeleted) {
+		this.isDeleted = isDeleted;
 	}
 
 	// Methods
